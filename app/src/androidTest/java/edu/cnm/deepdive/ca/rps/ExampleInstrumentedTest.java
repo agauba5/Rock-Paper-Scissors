@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.ca.RPS;
+package edu.cnm.deepdive.ca.rps;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
