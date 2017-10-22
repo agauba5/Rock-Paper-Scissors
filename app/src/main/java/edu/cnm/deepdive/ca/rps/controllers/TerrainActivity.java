@@ -9,9 +9,15 @@ import edu.cnm.deepdive.ca.rps.R;
 import edu.cnm.deepdive.ca.rps.models.Terrain;
 import edu.cnm.deepdive.ca.rps.views.TerrainView;
 
+/**TerrainActivity class for Rock-paper-scissors Cellular Automaton.
+ *
+ * @author Abdul Haseeb Gauba
+ */
 public class TerrainActivity extends AppCompatActivity {
 
+  /**Default rest time for threads class */
   private static final int RUNNER_THREAD_REST = 40;
+  /**Default rest time for threads class */
   private static final int RUNNER_THREAD_SLEEP = 50;
 
   private boolean running = false;
@@ -79,29 +85,60 @@ public class TerrainActivity extends AppCompatActivity {
 
   }
 
+  /**
+   * instantiates initializes a new Terrain object
+   */
   private void initializeModel() {
     terrain = new Terrain();
     terrain.initialize();
   }
 
+  /**
+   * assigned values for terrainLayout and TerrainView
+   */
   private void initializeUserInterface() {
     terrainLayout = findViewById(R.id.terrainLayout);
     terrainView = (TerrainView) findViewById(R.id.terrainView);
 
   }
 
+  /**
+   * returns the boolean value of the running field
+   *
+   * @return on/off indicator of running
+   */
   private synchronized boolean isRunning() {
     return running;
   }
 
+  /**
+   * Sets the value of running used in the Runner class to determines if
+   * terrain.step() and terrainView.setSource() are run.
+   *
+   * Allows update of the View determined upon the conditions in the Runner class.
+   *
+   * @param running on/off indicator of running
+   */
   private synchronized void setRunning(boolean running) {
     this.running = running;
   }
+
+  /**
+   * Returns the currently specified value of inForeground field based whether the app is paused,
+   * running or resetting.
+   *
+   * @return on/off indicator of inForground
+   */
 
   private synchronized boolean isInForeground() {
     return inForeground;
   }
 
+  /**
+   * Sets inForeground value, used as an indicator to determine state(reset, pause or run)
+   *
+   * @param inForeground on/off indicator of inForground
+   */
   private synchronized void setInForeground(boolean inForeground) {
     if (inForeground) {
       this.inForeground = true;
@@ -121,6 +158,10 @@ public class TerrainActivity extends AppCompatActivity {
     }
   }
 
+  /**
+   * Determines the state of the thread and sets the sleep method to rest or sleep
+   * based on the isRunning and isInForeground conditions
+   */
   private class Runner extends Thread {
 
     @Override
